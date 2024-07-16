@@ -41,7 +41,6 @@ class RemoteIdentityNode(ChordRemoteNode, BaseIdentityNode):
         else:
             if response.status_code == 200:
                 result: bool = response.json()["success"]
-                print(" Soy result del remote")
                 return result
 
             print("ERROR:", response.json()["detail"])

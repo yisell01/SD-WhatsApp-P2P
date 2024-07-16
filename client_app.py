@@ -3,6 +3,7 @@ from uvicorn import Config, Server
 from threading import Thread
 import time
 import asyncio
+import tkinter as tk
 from src.client.client import client_api, client, service
 from src.client.client_utils import SERVER_ADDRESSES_CACHE_FILENAME
 from network_utils import LOCAL_IP, CLIENT_PORT, SERVICE_PORT, SERVER_PORT, inject_to_state, get_ip
@@ -11,6 +12,7 @@ from src.server.identity.remote_identity_node import RemoteIdentityNode
 from src.server.chord.base_node import BaseNodeModel
 from src.service.broadcast.server import broadcast_task
 from ui import UI
+from gui import ChatApp
 
 client_api.on_event("shutdown")(client.save_nodes)
 
@@ -73,7 +75,11 @@ def start_client():
 
     time.sleep(1)
 
-    ui = UI(LOCAL_IP, CLIENT_PORT)
-    ui.start()
+    # ui = UI(LOCAL_IP, CLIENT_PORT)
+    # ui.start()
+
+    root = tk.Tk()
+    ChatApp(root, LOCAL_IP, CLIENT_PORT)
+    root.mainloop()
 
 start_client()
